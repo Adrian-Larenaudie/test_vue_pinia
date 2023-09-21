@@ -31,7 +31,7 @@ export const useAuthStore = defineStore("auth", {
         async loginAction() {
             try {
                 this.toggleIsLoadingValue();
-                const response = await Axios.post("http://localhost:5050/api/login", { email: this.email, password: this.password });
+                const response = await Axios.post("http://localhost:5050/api/auth/login", { email: this.email, password: this.password });
                 if(response.status === 200) {
                     localStorage.setItem("access_token", response.data.token);    
                 }
@@ -40,6 +40,7 @@ export const useAuthStore = defineStore("auth", {
                 this.setPasswordValue("");
                 this.setErrorMessageValue("");
             } catch (error) {
+                console.log(error);
                 this.setErrorMessageValue("Bad credentials !");
             } finally {
                 this.toggleIsLoadingValue();
